@@ -12,7 +12,7 @@ use AppBundle\Entity\Book;
  */
 class BookRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getAllBooks($filters=array())
+    public function getAllBooks($filters = array())
     {
         $allBooksQueryBuilder = $this->getEntityManager()->getRepository(Book::class)
             ->createQueryBuilder('book')
@@ -21,5 +21,16 @@ class BookRepository extends \Doctrine\ORM\EntityRepository
             ->where('book.status = :status')
             ->setParameter('status', '1');
         return $allBooksQueryBuilder->getQuery()->getResult();
+    }
+
+    public function getBookArray($bookId)
+    {
+        $bookQueryBuilder = $this->getEntityManager()->getRepository(Book::class)
+            ->createQueryBuilder('book');
+        return $bookQueryBuilder->select('book')
+            ->where('book.id= :id')
+            ->setParameter('id', $bookId)
+            ->getQuery()
+            ->getResult(1);
     }
 }

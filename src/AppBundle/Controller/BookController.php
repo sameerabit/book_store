@@ -17,12 +17,19 @@ class BookController extends Controller
     /**
      * @Route("/index",name="books_all")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        $session = $request->getSession();
+        $cartItemCount = 0;
+        if ($session->has("cartItems")) {
+            $cartItems = $session->get("cartItems");
+            $cartItemCount = count($cartItems["items"]);
+        }
         $books = $this->getDoctrine()->getRepository(Book::class)
             ->getAllBooks();
         return $this->render('application/book/list.html.twig', array(
-            'books'=> $books
+            'books'=> $books,
+            "cartItemCount"=> $cartItemCount
         ));
     }
 
@@ -89,5 +96,6 @@ class BookController extends Controller
         }
         return $this->redirectToRoute('books_all');
     }
+
 
 }
