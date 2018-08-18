@@ -6,26 +6,6 @@
     <annotation-enable>false</annotation-enable>
     <other-services-enabled>false</other-services-enabled>
   </component>
-  <component name="PhpDockerContainerSettings">
-    <list>
-      <map>
-        <entry key="386f69e9-ff82-492c-93fd-3349c7b8e695">
-          <value>
-            <DockerContainerSettings>
-              <option name="version" value="1" />
-              <option name="volumeBindings">
-                <list>
-                  <DockerVolumeBindingImpl>
-                    <option name="containerPath" value="/opt/project" />
-                  </DockerVolumeBindingImpl>
-                </list>
-              </option>
-            </DockerContainerSettings>
-          </value>
-        </entry>
-      </map>
-    </list>
-  </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state>

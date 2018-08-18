@@ -75,6 +75,15 @@ class Book
     }
 
     /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+
+    /**
      * Set name
      *
      * @param string $name

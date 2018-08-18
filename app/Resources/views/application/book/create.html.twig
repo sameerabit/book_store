@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+
+    <div class="row">
+        {{ form_start(form, { 'action': path('book_create'), 'method': 'POST','attr': {'class': 'col s12'} }) }}
+        {{ form_row(form.id) }}
+        <div class="input-field col s6">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="input-field col s6">
+            {{ form_row(form.author) }}
+        </div>
+        <div class="input-field col s6">
+            {{ form_row(form.category) }}
+        </div>
+        <div class="input-field col s6">
+            {{ form_row(form.description) }}
+        </div>
+        <div class="input-field col s6">
+            {{ form_row(form.unitPrice) }}
+        </div>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('select').formSelect();
+        });
+    </script>
+
+{% endblock %}

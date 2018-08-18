@@ -39,7 +39,7 @@ class BookController extends Controller
             $book = $form->getData();
             $book->setStatus(1);
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($book);
+            $entityManager->merge($book);
             $entityManager->flush();
             return $this->redirectToRoute('books_all');
         }
@@ -50,33 +50,44 @@ class BookController extends Controller
     }
 
     /**
-     * @Route("/update")
+     * @Route("/update/{id}")
      */
-    public function updateAction()
+    public function updateAction($id)
     {
-        return $this->render('AppBundle:Book:update.html.twig', array(
-            // ...
+        $book = $this->getDoctrine()->getRepository(Book::class)
+            ->find($id);
+        $form = $this->createForm(BookFormType::class, $book);
+        return $this->render('application/book/create.html.twig', array(
+            'form' => $form->createView(),
         ));
     }
 
     /**
-     * @Route("/show")
+     * @Route("/show/{id}")
      */
-    public function showAction()
+    public function showAction($id)
     {
-        return $this->render('AppBundle:Book:show.html.twig', array(
-            // ...
+        $book = $this->getDoctrine()->getRepository(Book::class)
+            ->find($id);
+        return $this->render('application/book/show.html.twig', array(
+            'book'=> $book
         ));
     }
 
     /**
-     * @Route("/delete")
+     * @Route("/delete/{id}")
      */
-    public function deleteAction()
+    public function deleteAction($id)
     {
-        return $this->render('AppBundle:Book:delete.html.twig', array(
-            // ...
-        ));
+        $book = $this->getDoctrine()->getRepository(Book::class)
+            ->find($id);
+        if($book)
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($book);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('books_all');
     }
 
 }

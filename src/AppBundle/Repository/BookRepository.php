@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Book;
+
 /**
  * BookRepository
  *
@@ -10,4 +12,14 @@ namespace AppBundle\Repository;
  */
 class BookRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getAllBooks($filters=array())
+    {
+        $allBooksQueryBuilder = $this->getEntityManager()->getRepository(Book::class)
+            ->createQueryBuilder('book')
+            ->select('book,cat')
+            ->innerJoin('book.category', 'cat')
+            ->where('book.status = :status')
+            ->setParameter('status', '1');
+        return $allBooksQueryBuilder->getQuery()->getResult();
+    }
 }
