@@ -1,21 +1,22 @@
 {% extends 'base.html.twig' %}
 {% block content %}
     <a class="waves-effect waves-light btn-small" href="create">Add New Book</a>
-<div class="row">
-    {% for book in books %}
-        <div class="col s12">
-            <div class="card horizontal small card-small">
-                <div class="card-image"><img src="https://images.pexels.com/photos/51342/books-education-school-literature-51342.jpeg?auto=compress&cs=tinysrgb&h=350"></div>
-                <div class="card-stacked">
-                    <div class="card-content">
-                        <h3><a href="show/{{ book.id }}">{{ book.name }}</a></h3>
-                        <h4>{{ book.author }}</h4>
-                        <p class="flow-text">{{ book.description }}</p>
+    <div class="row">
+        {% for book in books %}
+            <div class="col s12">
+                <div class="card horizontal small card-small" style="height: 250px !important;">
+                    <div class="card-image"><img style="width: 150px; height: 100px" src="https://images.pexels.com/photos/51342/books-education-school-literature-51342.jpeg?auto=compress&cs=tinysrgb&h=350"></div>
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <h5><a href="show/{{ book.id }}">{{ book.name }}</a></h5>
+                            <h6>{{ book.author }}</h6>
+                            <h6>Rs. {{ book.unitPrice|number_format(2, '.', ',') }}</h6>
+                            <p style="font-size: 15px" class="flow-text">{{ book.description }}</p>
+                        </div>
+                        <div class="card-action"><a href="/cart/book/{{ book.id }}" class="btn orange">Add To Cart</a></div>
                     </div>
-                    <div class="card-action"><a href="/cart/book/{{ book.id }}" class="btn orange">Add To Cart</a></div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
     </div>
 {% endblock %}

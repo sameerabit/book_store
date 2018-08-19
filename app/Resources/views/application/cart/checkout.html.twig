@@ -1,8 +1,15 @@
 {% extends "base.html.twig" %}
 {% block content %}
-    <div class="row">
-        <p>Cart Total : <span id="totalPrice">{{ cart.cartTotal }}</span></p>
-    </div>
+    <form action="checkout" method="post">
+        <div class="row">
+            <p>Cart Total : <span id="totalPrice">{{ cart.cartTotal }}</span></p>
+            <div class="input-field col s6">
+                <input id="coupon_code" name="coupon_code" type="text" class="validate">
+                <label for="coupon_code">Coupon Code</label>
+                <input type="submit" value="Checkout" class="waves-effect waves-light btn-small"></input>
+            </div>
+        </div>
+    </form>
     <div class="row">
         {% for book in cart.items %}
             <div class="col s12">
@@ -10,7 +17,7 @@
                     <div class="card-image"><img src="https://images.pexels.com/photos/51342/books-education-school-literature-51342.jpeg?auto=compress&cs=tinysrgb&h=350"></div>
                     <div class="card-stacked">
                         <div class="card-content">
-                            <h6>{{ book.name }}</a></h6>
+                            <h6>{{ book.name }} | {{ book.category }}</h6>
                             <span>Quantity</span>
                             <input type="text" onKeyUp="editQty({{ book.id }})" id="qty_{{ book.id }}" value="{{ book.quantity }}" />
                             <span>Unit Price</span>
